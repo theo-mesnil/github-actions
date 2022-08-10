@@ -15,7 +15,7 @@ jobs:
           script: |
             const pullRequestId = context.payload.number
             
-            const pullRequest = github.rest.pulls.get({
+            const pullRequest = await github.rest.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: pullRequestId,
