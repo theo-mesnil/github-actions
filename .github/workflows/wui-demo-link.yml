@@ -6,4 +6,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print the url to the demo
-        run: echo The url is https://${GITHUB_REF_NAME}--welcome-ui.netlify.app
+        run: echo The url is https://${GITHUB_HEAD_REF}--welcome-ui.netlify.app
