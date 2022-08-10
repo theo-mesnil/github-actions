@@ -13,8 +13,8 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            octokit.rest.pulls.update({
-              github: context.repo.owner,
+            github.rest.pulls.update({
+              owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.pulls.number,
               body: `https://${context.pulls.number}--welcome-ui.netlify.app`
