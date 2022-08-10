@@ -15,20 +15,14 @@ jobs:
           script: |
             const pullRequestId = context.payload.pull_request.number
             const pullRequestBranch = context.payload.pull_request.head.ref
-            const pullRequestBody = context.payload.pull_request.head.ref
-            
-            const pullRequest = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: pullRequestId,
-            });
+            const pullRequestBody = context.payload.pull_request.body
             
             github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: pullRequestId,
-              body: `${body && `${body
+              body: `${body ? `${body
               
-              `}
+              ` : ''}
               🌞 DEMO: https://${pullRequestBranch}--welcome-ui.netlify.app 🌞` 
             });
