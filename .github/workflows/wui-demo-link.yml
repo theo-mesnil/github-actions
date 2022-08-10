@@ -14,12 +14,7 @@ jobs:
         with:
           script: |
             console.log(context)
-            const pullRequestId = context.payload.pull_request.id
-            const pullRequest = github.rest.pulls({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            });
-            console.log(pullRequest)
+            const pullRequestId = context.payload.
             github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
