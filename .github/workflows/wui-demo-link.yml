@@ -13,18 +13,16 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const pullRequestId = context.payload.number
-            
-            const pullRequest = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: pullRequestId,
-            });
-            console.log(pullRequest)
+            const pullRequestId = context.payload.pull_request.number
+            const pullRequestBranch = context.payload.pull_request.head.ref
+            const pullRequestBody = context.payload.pull_request.body
             
             github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: pullRequestId,
-              body: `https://${pullRequestId}--welcome-ui.netlify.app`
+              body: `${pullRequestBody ? `${pullRequestBody}
+              
+              ` : ''}
+              🌞 DEMO: https://${pullRequestBranch}--welcome-ui.netlify.app 🌞` 
             });
