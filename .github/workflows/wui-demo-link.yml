@@ -21,8 +21,6 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: pullRequestId,
-              body: `${body ? `${body
-              
-              ` : ''}
+              body: `${body}
               🌞 DEMO: https://${pullRequestBranch}--welcome-ui.netlify.app 🌞` 
             });
