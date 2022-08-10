@@ -1,14 +1,17 @@
+name: WUI Demo link
+
 on:
   pull_request:
     types: [opened]
+
 jobs:
   add_links_to_demo:
     runs-on: ubuntu-latest
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        URL: https://${GITHUB_HEAD_REF}--welcome-ui.netlify.app
     steps:
-      - env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          URL: https://${GITHUB_HEAD_REF}--welcome-ui.netlify.app
       - name: Print the url to the demo
-        run: echo The url is ${URL}
+        run: echo "The url is ${URL}"
       - name: Add a comment
         run: gh pr comment $GITHUB_HEAD_REF --body "coco ${URL}"
