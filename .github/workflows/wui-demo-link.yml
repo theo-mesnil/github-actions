@@ -8,4 +8,4 @@ jobs:
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh issue edit $GITHUB_REF --body "coco"
+          gh pr edit $GITHUB_REF --body "coco"
