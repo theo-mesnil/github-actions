@@ -1,17 +1,18 @@
-name: WUI Demo link
+name: Demo link
 
 on:
   pull_request:
     types: [opened]
 
 jobs:
-  add_links_to_demo:
+  add_demo_link:
+    name: Add demo link to PR description
     runs-on: ubuntu-latest
     env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/github-script@v6
-        name: Add demo link to PR description
+        name: Update PR description
         with:
           script: |
             const pullRequestId = context.payload.pull_request.number
