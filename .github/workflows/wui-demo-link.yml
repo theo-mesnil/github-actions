@@ -14,9 +14,15 @@ jobs:
         with:
           script: |
             console.log(context)
+            const pullRequestId = context.payload.pull_request.id
+            const pullRequest = github.rest.pulls({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+            console.log(pullRequest)
             github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: context.pull_request.id,
-              body: `https://${context.pull_request.id}--welcome-ui.netlify.app`
+              pull_number: pullRequestId,
+              body: `https://${pullRequestId}--welcome-ui.netlify.app`
             });
