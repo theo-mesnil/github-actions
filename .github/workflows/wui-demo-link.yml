@@ -5,7 +5,5 @@ jobs:
   add_links_to_demo:
     runs-on: ubuntu-latest
     steps:
-      - env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr edit $GITHUB_REF --body "coco"
+      - name: Print the url to the demo
+        run: echo The url is https://${GITHUB_REF_NAME}--welcome-ui.netlify.app
