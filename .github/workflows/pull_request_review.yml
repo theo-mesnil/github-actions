@@ -20,11 +20,18 @@ jobs:
               repo: context.repo.repo,
             })
   changed:
+    if: github.event.review.state == 'changes-requested'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
         with:
           script: |
-            console.log(context)
-            console.log(github)
+            const pullRequestId = context.payload.pull_request.number
+        
+            github.rest.issues.addLabels({
+              issue_number: pullRequestId,
+              labels: ['changed'],
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
   
