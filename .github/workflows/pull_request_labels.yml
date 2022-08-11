@@ -52,16 +52,26 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
-  reviews:
-    name: On reviews
+  approved:
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
-    env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-    - name: Add testing label
-      uses: pullreminders/label-when-approved-action@master
-      env:
-        APPROVALS: "1"
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        ADD_LABEL: "testing"
-        REMOVE_LABEL: "review"
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const pullRequestId = context.payload.pull_request.number
+        
+            github.rest.issues.addLabels({
+              issue_number: pullRequestId,
+              labels: ['testing'],
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+  changed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            console.log(context)
+  
