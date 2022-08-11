@@ -55,9 +55,9 @@ jobs:
       - uses: technote-space/get-diff-action@v6
         with:
           PATTERNS: |
-            test_cypress/**/*.+(html|ts)
+            test_cypress/**/*
       - name: Add qa label
-        if: env.GIT_DIFF
+        if: ${{ env.GIT_DIFF }}
         uses: actions/github-script@v6
         with:
           script: |
