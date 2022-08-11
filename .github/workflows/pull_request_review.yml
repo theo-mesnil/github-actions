@@ -20,7 +20,7 @@ jobs:
               repo: context.repo.repo,
             })
   changed:
-    if: github.event.review.state == 'changes-requested'
+    if: github.event.review.state == 'changes_requested'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
