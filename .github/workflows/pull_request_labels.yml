@@ -1,0 +1,25 @@
+name: Pull request
+
+on:
+  pull_request_target:
+    types: [opened]
+    
+jobs:
+  opened:
+    name: On PR opened
+    runs-on: ubuntu-latest
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/github-script@v6
+        name: Add review label
+        with:
+          script: |
+            const pullRequestId = context.payload.pull_request.number
+            
+            github.rest.issues.addLabels({
+              issue_number: pullRequestId,
+              labels: ['review'],
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
