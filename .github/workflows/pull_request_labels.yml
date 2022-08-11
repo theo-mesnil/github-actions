@@ -12,14 +12,17 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/github-script@v6
+        if: ${{ console.log(github) }}
         name: Add review label
         with:
           script: |
             const pullRequestId = context.payload.pull_request.number
+            const isDraft = context.payload.pull_request.draft
+          
             console.log(context)
             github.rest.issues.addLabels({
               issue_number: pullRequestId,
-              labels: ['review'],
+              labels: [isDraft ? 'wip' : 'review'],
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
