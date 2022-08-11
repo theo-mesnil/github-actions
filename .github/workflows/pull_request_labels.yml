@@ -2,7 +2,7 @@ name: Pull request
 
 on:
   pull_request_target:
-    types: [opened]
+    types: [ready_for_review]
     
 jobs:
   opened:
