@@ -40,7 +40,7 @@ jobs:
             })
       - name: Add release label
         uses: actions/github-script@v6
-        if: ${{ github.event.pull_request.title.startWidth('release:') }}
+        if: ${{ startsWith(github.event.pull_request.title, 'release:') }}
         with:
           script: |
             const pullRequestId = context.payload.pull_request.number
