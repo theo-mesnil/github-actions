@@ -12,9 +12,9 @@ jobs:
     env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/github-script@v6
-        name: Add review label
+      - name: Add review label
         if: ${{ github.event.pull_request.draft == false }}
+        uses: actions/github-script@v6
         with:
           script: |
             const pullRequestId = context.payload.pull_request.number
@@ -26,8 +26,8 @@ jobs:
               repo: context.repo.repo,
             })
       - name: Add wip label
-        uses: actions/github-script@v6
         if: ${{ github.event.pull_request.draft == true }}
+        uses: actions/github-script@v6
         with:
           script: |
             const pullRequestId = context.payload.pull_request.number
@@ -39,8 +39,8 @@ jobs:
               repo: context.repo.repo,
             })
       - name: Add release label
-        uses: actions/github-script@v6
         if: ${{ startsWith(github.event.pull_request.title, 'release:') }}
+        uses: actions/github-script@v6
         with:
           script: |
             const pullRequestId = context.payload.pull_request.number
@@ -48,6 +48,25 @@ jobs:
             github.rest.issues.addLabels({
               issue_number: pullRequestId,
               labels: ['release'],
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+      - name: Add qa label
+      - uses: actions/checkout@v2
+      - uses: technote-space/get-diff-action@v6
+      - uses: actions/github-script@v6
+        with:
+          PATTERNS: |
+            test_cypress/*
+      - name: Check if test_cypress is include on PR
+        if: env.GIT_DIFF
+        with:
+          script: |
+            const pullRequestId = context.payload.pull_request.number
+        
+            github.rest.issues.addLabels({
+              issue_number: pullRequestId,
+              labels: ['qa'],
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
