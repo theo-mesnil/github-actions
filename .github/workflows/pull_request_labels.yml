@@ -12,8 +12,6 @@ jobs:
     env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: technote-space/get-diff-action@v6
       - name: Add review label
         if: ${{ github.event.pull_request.draft == false }}
         uses: actions/github-script@v6
@@ -53,12 +51,12 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
-      - name: Add qa label
-        uses: actions/github-script@v6
+      - uses: actions/checkout@v2
+      - uses: technote-space/get-diff-action@v6
         with:
           PATTERNS: |
             test_cypress/*
-      - name: Check if test_cypress is include on PR
+      - name: Add qa label
         if: env.GIT_DIFF
         uses: actions/github-script@v6
         with:
