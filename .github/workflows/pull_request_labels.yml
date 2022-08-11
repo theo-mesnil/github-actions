@@ -7,22 +7,34 @@ on:
 jobs:
   opened:
     name: On PR opened
+    if: ${{ github.event.action == 'opened' }}
     runs-on: ubuntu-latest
     env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/github-script@v6
-        if: ${{ github.event.pull_request == 'draft' }}
         name: Add review label
+        if: ${{ github.event.pull_request.draft == false }}
         with:
           script: |
             const pullRequestId = context.payload.pull_request.number
-            const isDraft = context.payload.pull_request.draft
-          
-            console.log(context)
+        
             github.rest.issues.addLabels({
               issue_number: pullRequestId,
-              labels: [isDraft ? 'wip' : 'review'],
+              labels: ['review'],
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+      - name: Add wip label
+        uses: actions/github-script@v6
+        if: ${{ github.event.pull_request.draft == true }}
+        with:
+          script: |
+            const pullRequestId = context.payload.pull_request.number
+        
+            github.rest.issues.addLabels({
+              issue_number: pullRequestId,
+              labels: ['wip'],
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
