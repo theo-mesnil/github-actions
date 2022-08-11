@@ -3,6 +3,7 @@ name: Pull request
 on:
   pull_request_target:
     types: [opened]
+  pull_request_review:
     
 jobs:
   opened:
@@ -58,7 +59,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - name: Add testing label
-      uses: pullreminders/label-when-approved-action@master
+      uses: pullreminders/label-when-approved-action@1.0.7
       env:
         APPROVALS: "1"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
