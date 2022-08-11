@@ -15,6 +15,7 @@ jobs:
         name: Add review label
         with:
           script: |
+            console.log(context)
             const pullRequestId = context.payload.pull_request.number
             
             github.rest.issues.addLabels({
