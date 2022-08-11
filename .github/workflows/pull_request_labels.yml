@@ -6,7 +6,7 @@ on:
     
 jobs:
   opened:
-    name: On PR opened
+    name: On opened
     if: ${{ github.event.action == 'opened' }}
     runs-on: ubuntu-latest
     env:
@@ -51,8 +51,16 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - run: |
-          git diff ${{github.event.before}} ${{github.sha}}
+  reviews:
+    name: On reviews
+    runs-on: ubuntu-latest
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - name: Add testing label
+      uses: pullreminders/label-when-approved-action@master
+      env:
+        APPROVALS: "1"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ADD_LABEL: "testing"
+        REMOVE_LABEL: "review"
