@@ -56,6 +56,7 @@ jobs:
         with:
           PATTERNS: |
             test_cypress/**/*
+      - run: echo ${{ env.GIT_DIFF }}
       - name: Add qa label
         if: ${{ env.GIT_DIFF }}
         uses: actions/github-script@v6
