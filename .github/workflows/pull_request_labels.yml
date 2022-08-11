@@ -12,6 +12,8 @@ jobs:
     env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - uses: actions/checkout@v2
+      - uses: technote-space/get-diff-action@v6
       - name: Add review label
         if: ${{ github.event.pull_request.draft == false }}
         uses: actions/github-script@v6
@@ -52,18 +54,16 @@ jobs:
               repo: context.repo.repo,
             })
       - name: Add qa label
-      - uses: actions/checkout@v2
-      - uses: technote-space/get-diff-action@v6
-      - uses: actions/github-script@v6
+        uses: actions/github-script@v6
         with:
           PATTERNS: |
             test_cypress/*
       - name: Check if test_cypress is include on PR
         if: env.GIT_DIFF
+        uses: actions/github-script@v6
         with:
           script: |
             const pullRequestId = context.payload.pull_request.number
-        
             github.rest.issues.addLabels({
               issue_number: pullRequestId,
               labels: ['qa'],
