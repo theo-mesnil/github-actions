@@ -16,7 +16,7 @@ jobs:
         with:
           script: |
             const pullRequestId = context.payload.pull_request.number
-            
+            console.log(context)
             github.rest.issues.addLabels({
               issue_number: pullRequestId,
               labels: ['review'],
