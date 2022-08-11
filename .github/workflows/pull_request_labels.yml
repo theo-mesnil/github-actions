@@ -12,7 +12,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/github-script@v6
-        if: ${{ github.event.pull_request !== 'draft' }}
+        if: ${{ github.event.pull_request == 'draft' }}
         name: Add review label
         with:
           script: |
