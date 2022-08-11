@@ -26,5 +26,5 @@ jobs:
               body: `${pullRequestBody ? `${pullRequestBody}
               
               ` : ''}
-              🌞 [DEMO](https://${pullRequestBranch}--welcome-ui.netlify.app) 🌞` 
+              🌞 <a href="https://${pullRequestBranch}--welcome-ui.netlify.app" target="_blank">DEMO</a> 🌞` 
             });
