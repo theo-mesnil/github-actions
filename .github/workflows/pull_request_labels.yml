@@ -38,3 +38,16 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
+      - name: Add release label
+        uses: actions/github-script@v6
+        if: ${{ github.event.pull_request.title.startWidth('release:') }}
+        with:
+          script: |
+            const pullRequestId = context.payload.pull_request.number
+        
+            github.rest.issues.addLabels({
+              issue_number: pullRequestId,
+              labels: ['release'],
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
