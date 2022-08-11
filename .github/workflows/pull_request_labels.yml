@@ -52,19 +52,7 @@ jobs:
               repo: context.repo.repo,
             })
       - uses: actions/checkout@v2
-      - uses: technote-space/get-diff-action@v6
         with:
-          FILES: test_cypress/index.html
-      - run: echo ${{ env.GIT_DIFF }}
-      - name: Add qa label
-        if: ${{ env.GIT_DIFF }}
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const pullRequestId = context.payload.pull_request.number
-            github.rest.issues.addLabels({
-              issue_number: pullRequestId,
-              labels: ['qa'],
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            })
+          fetch-depth: 0
+      - run: |
+          git diff ${{github.event.before}} ${{github.sha}}
