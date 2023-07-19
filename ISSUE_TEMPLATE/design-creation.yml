@@ -1,0 +1,23 @@
+name: "[Design] Component creation"
+description: ""
+body:
+  - type: "markdown"
+    attributes:
+      value: |
+        *Description coming*
+  - type: "textarea"
+    id: "description"
+    attributes:
+      label: "Description"
+      description: "todo"
+      placeholder: |
+        todo
+    validations:
+      required: true
+  - type: "input"
+    id: "due-date"
+    attributes:
+      label: "Due Date"
+      placeholder: "DD/MM/YYYY"
+    validations:
+      required: true
