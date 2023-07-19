@@ -1,5 +1,6 @@
 name: "[Design] Component creation"
 description: "todo"
+labels: ["design"]
 body:
   - type: "markdown"
     attributes:
