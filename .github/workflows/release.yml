@@ -16,18 +16,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Get
-        run: echo "CHANGELOG_BODY=$(npx extract-changelog-release)" >> $GITHUB_ENV
-      - name: Test
-        run: echo "$CHANGELOG_BODY"
       - name: Pre-release
         uses: softprops/action-gh-release@v1
         if: contains(github.ref, '-') == true
         with:
-          body: echo "$CHANGELOG_BODY"
           prerelease: true
       - name: Release
         uses: softprops/action-gh-release@v1
         if: contains(github.ref, '-') == false
-        with:
-          body: echo "$CHANGELOG_BODY"
