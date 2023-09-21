@@ -23,15 +23,15 @@ jobs:
 
           echo changelog_output=$changelog >> $GITHUB_OUTPUT
       - name: Test
-        run: echo "${{ steps.get.outputs.version }}"
+        run: echo ${{ steps.get.outputs.changelog }}
       - name: Pre-release
         uses: softprops/action-gh-release@v1
         if: contains(github.ref, '-') == true
         with:
-          body: echo "${{ steps.get.outputs.version }}"
+          body: ${{ steps.get.outputs.changelog }}
           prerelease: true
       - name: Release
         uses: softprops/action-gh-release@v1
         if: contains(github.ref, '-') == false
         with:
-          body: echo "${{ steps.get.outputs.version }}"
+          body: ${{ steps.get.outputs.changelog }}
