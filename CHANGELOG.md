@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.7](https://github.com/theo-mesnil/github-actions/compare/v0.0.1...V0.0.2) (2023-09-21)
+
+### Bug Fixes
+
+- test7
+-
+
 ## [0.0.6](https://github.com/theo-mesnil/github-actions/compare/v0.0.1...V0.0.2) (2023-09-21)
 
 ### Bug Fixes
