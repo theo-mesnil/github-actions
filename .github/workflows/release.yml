@@ -24,10 +24,10 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: contains(github.ref, '-') == true
         with:
-          body: $CHANGELOG_BODY
+          body: echo "$CHANGELOG_BODY"
           prerelease: true
       - name: Release
         uses: softprops/action-gh-release@v1
         if: contains(github.ref, '-') == false
         with:
-          body: $CHANGELOG_BODY
+          body: echo "$CHANGELOG_BODY"
