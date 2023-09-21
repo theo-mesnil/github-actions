@@ -19,8 +19,7 @@ jobs:
       - name: Get
         id: get
         run: |
-          MESSAGE=$(cat << EOF
-          npx extract-changelog-release
+          MESSAGE=$(npx extract-changelog-release << EOF
           EOF
           )
           echo TEST=$MESSAGE >> $GITHUB_OUTPUT
