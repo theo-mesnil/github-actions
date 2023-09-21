@@ -25,7 +25,7 @@ jobs:
         with:
           bodyFile: "RELEASE.md"
           prerelease: true
-      - name: Pre-release
+      - name: Release
         uses: ncipollo/release-action@v1
         if: contains(github.ref, '-') == false
         with:
