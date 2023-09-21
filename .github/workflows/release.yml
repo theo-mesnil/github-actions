@@ -1,0 +1,33 @@
+name: Github release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  publish:
+    name: Create new github release
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Get
+        run: echo "CHANGELOG_BODY=$(npx extract-changelog-release)" >> $GITHUB_ENV
+      - name: Test
+        run: echo "$CHANGELOG_BODY"
+      - name: Pre-release
+        uses: softprops/action-gh-release@v1
+        if: contains(github.ref, '-') == true
+        with:
+          body: $CHANGELOG_BODY
+          prerelease: true
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: contains(github.ref, '-') == false
+        with:
+          body: $CHANGELOG_BODY
