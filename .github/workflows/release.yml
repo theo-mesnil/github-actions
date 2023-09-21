@@ -19,19 +19,21 @@ jobs:
       - name: Get
         id: get
         run: |
-          changelog=$(npx extract-changelog-release)
-
-          echo changelog_output=$changelog >> $GITHUB_OUTPUT
+          MESSAGE=$(cat << EOF
+          npx extract-changelog-release
+          EOF
+          )
+          echo TEST=$MESSAGE >> $GITHUB_OUTPUT
       - name: Test
-        run: echo ${{ steps.get.outputs.changelog_output }}
+        run: echo ${{ steps.get.outputs.TEST }}
       - name: Pre-release
         uses: softprops/action-gh-release@v1
         if: contains(github.ref, '-') == true
         with:
-          body: ${{ steps.get.outputs.changelog_output }}
+          body: ${{ steps.get.outputs.TEST }}
           prerelease: true
       - name: Release
         uses: softprops/action-gh-release@v1
         if: contains(github.ref, '-') == false
         with:
-          body: ${{ steps.get.outputs.changelog_output }}
+          body: ${{ steps.get.outputs.TEST }}
