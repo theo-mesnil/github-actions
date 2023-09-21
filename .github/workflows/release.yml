@@ -18,20 +18,15 @@ jobs:
         uses: actions/checkout@v3
       - name: Get
         id: get
-        run: |
-          changelog=$(npx extract-changelog-release)
-
-          echo changelog_output=$changelog >> $GITHUB_OUTPUT
-      - name: Test
-        run: echo ${{ steps.get.outputs.changelog_output }}
+        run: npx extract-changelog-release > RELEASE.md
       - name: Pre-release
-        uses: softprops/action-gh-release@v1
+        uses: ncipollo/release-action@v1
         if: contains(github.ref, '-') == true
         with:
-          body: ${{ steps.get.outputs.changelog_output }}
+          bodyFile: "RELEASE.md"
           prerelease: true
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - name: Pre-release
+        uses: ncipollo/release-action@v1
         if: contains(github.ref, '-') == false
         with:
-          body: ${{ steps.get.outputs.changelog_output }}
+          bodyFile: "RELEASE.md"
